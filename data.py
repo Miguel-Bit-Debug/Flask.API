@@ -18,3 +18,20 @@ class Funcionario:
                     'cargo': 'design',
                     'salario': 4500}
                 ]
+        self.users = [
+            {
+                "username": 'Maria', 'secret':'@dmin'
+            },
+            {
+                "username": 'Carlos', 'secret':'@dmin'
+            },
+            {
+                "username": 'Miguel', 'secret':'@dmin'
+            },
+            {
+                "username": 'Fulano', 'secret':'@dmin'
+            },
+            {
+                "username": 'João', 'secret':'@dmin'
+            },
+        ]

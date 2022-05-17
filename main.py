@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, Response
 from data import Funcionario
 
 app = Flask(__name__)
@@ -43,6 +43,41 @@ def get_empregado_info(info, value):
                     out_empregados.append(empregado)
 
     return jsonify({'empregados': out_empregados})
+
+
+@app.route('/informations', methods=['POST'])
+def get_empregado_post():
+
+    username = request.form['username']
+    secret = request.form['secret']
+
+    if not check_user(username, secret):
+        return Response('Unauthorized', status=401)
+
+    info = request.form['info']
+    value = request.form['value']
+
+    out_empregados = []
+    for empregado in funcionario.empregados:
+        if info in empregado.keys():
+            value_empregado = empregado[info]
+
+            if type(value_empregado) == str:
+                if value == value_empregado.lower():
+                    out_empregados.append(empregado)
+
+            if type(value_empregado == int):
+                if int(value) == value_empregado:
+                    out_empregados.append(empregado)
+
+    return jsonify({'empregados': out_empregados})
+
+
+def check_user(username, secret):
+    for user in funcionario.users:
+        if user['username'] == username and user['secret'] == secret:
+            return True
+        return False
 
 
 
